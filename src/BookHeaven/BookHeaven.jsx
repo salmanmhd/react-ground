@@ -3,6 +3,7 @@ import Home from "./pages/Home";
 import ExploreBooks from "./pages/ExploreBooks";
 import Cart from "./pages/Cart";
 import Layout from "./Layout";
+import { BookProvider } from "./Context/BookConext";
 
 const router = createBrowserRouter([
   {
@@ -25,7 +26,11 @@ const router = createBrowserRouter([
 ]);
 
 function BookHeaven() {
-  return <RouterProvider router={router} />;
+  return (
+    <BookProvider>
+      <RouterProvider router={router} />
+    </BookProvider>
+  );
 }
 
 export default BookHeaven;

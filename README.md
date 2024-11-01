@@ -1,8 +1,32 @@
-# React + Vite
+# api details:
 
-This template provides a minimal setup to get React working in Vite with HMR and some ESLint rules.
+## search by title
 
-Currently, two official plugins are available:
+- intitle
+- inauthor
+- inlanguage
 
-- [@vitejs/plugin-react](https://github.com/vitejs/vite-plugin-react/blob/main/packages/plugin-react/README.md) uses [Babel](https://babeljs.io/) for Fast Refresh
-- [@vitejs/plugin-react-swc](https://github.com/vitejs/vite-plugin-react-swc) uses [SWC](https://swc.rs/) for Fast Refresh
+```javascript
+const URL = `https://www.googleapis.com/books/v1/volumes?q=intitle:eat+that+frog+inauthor:Brian+Tracy&key=${API_KEY}`;
+```
+
+## available categories:
+
+```javascript
+const URL = `https://www.googleapis.com/books/v1/volumes?q=subject:Fiction&key=${API_KEY}`;
+```
+
+    Business & Economics
+    Fiction
+    Self-Help
+    Biography & Autobiography
+    Science
+    Technology
+    Health & Fitness
+    History
+    Art
+    Philosophy
+
+```
+
+```
