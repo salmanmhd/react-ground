@@ -9,7 +9,7 @@ function Cart() {
     <div className="min-h-screen bg-white px-10 py-16 text-black">
       <div className="mb-2 flex h-12 items-center justify-between">
         <h1 className="text-xl font-bold">Shopping Cart</h1>
-        <p>Total Items: 2</p>
+        <p>Total Items: {cartItems.length}</p>
       </div>
       <div className="space mt-12">
         {cartItems.map((book, i) => (
@@ -25,7 +25,7 @@ function Cart() {
 
 function CartItem({ book }) {
   const { title, author, thumbnail, averageRating } = book;
-
+  const { handleDelete } = useContext(BookContext);
   return (
     <div className="items-center-center flex h-40 w-full justify-between rounded-lg rounded-t-lg bg-white p-4 text-black shadow-sm shadow-emerald-950">
       <div className="flex">
@@ -41,7 +41,10 @@ function CartItem({ book }) {
           <div className="px-4 font-bold text-emerald-900">₹199</div>
         </div>
       </div>
-      <button className="mr-2 flex items-center justify-center rounded-lg text-emerald-800">
+      <button
+        onClick={() => handleDelete(book.id)}
+        className="mr-2 flex items-center justify-center rounded-lg text-emerald-800"
+      >
         <Trash2 size={36} />
       </button>
     </div>

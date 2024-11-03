@@ -10,13 +10,34 @@ export function BookProvider({ children }) {
   const [search, setSearch] = useState("");
   const [cartItems, setCartItems] = useState([]);
   const KEY = import.meta.env.VITE_API_KEY;
-  console.log(KEY);
+
+  useEffect(() => {
+    if (!search) return;
+    const title = search.split(" ").join("+");
+    const URL = `https://www.googleapis.com/books/v1/volumes?q=intitle:${title}&key=${KEY}`;
+    setCategory("categories");
+    fetchData(URL);
+  }, [search, KEY]);
+
+  useEffect(() => {
+    if (category === "categories") return;
+    const URL = `https://www.googleapis.com/books/v1/volumes?q=subject:${category}&key=${KEY}`;
+
+    fetchData(URL);
+    setSearch("");
+  }, [category, KEY]);
+
+  useEffect(() => {
+    const URL = `https://www.googleapis.com/books/v1/volumes?q=subject:${"Self-Help"}&key=${KEY}`;
+    fetchData(URL);
+  }, [KEY]);
 
   async function fetchData(URL) {
     try {
       const response = await axios.get(URL);
       const newBooks = response.data.items.map((book) => ({
         title: book.volumeInfo.title,
+        id: book.id,
         subtitle: book.volumeInfo.subtitle,
         description: book.volumeInfo.description,
         averageRating: book.volumeInfo.averageRating,
@@ -29,10 +50,13 @@ export function BookProvider({ children }) {
       console.error("Error fetching data", error);
     }
   }
-  useEffect(() => {
-    const URL = `https://www.googleapis.com/books/v1/volumes?q=subject:${"Self-Help"}&key=${KEY}`;
-    fetchData(URL);
-  }, []);
+
+  function handleDelete(id) {
+    const newCart = cartItems.filter((book) => book.id !== id);
+
+    setCartItems(newCart);
+  }
+
   const values = {
     books,
     category,
@@ -41,23 +65,8 @@ export function BookProvider({ children }) {
     setSearch,
     cartItems,
     setCartItems,
+    handleDelete,
   };
-
-  useEffect(() => {
-    if (!search) return;
-    const title = search.split(" ").join("+");
-    const URL = `https://www.googleapis.com/books/v1/volumes?q=intitle:${title}&key=${KEY}`;
-    setCategory("categories");
-    fetchData(URL);
-  }, [search]);
-
-  useEffect(() => {
-    if (category === "categories") return;
-    const URL = `https://www.googleapis.com/books/v1/volumes?q=subject:${category}&key=${KEY}`;
-
-    fetchData(URL);
-    setSearch("");
-  }, [category]);
 
   return <BookContext.Provider value={values}>{children}</BookContext.Provider>;
 }

@@ -57,7 +57,7 @@ function ExploreBooks() {
 function BookItem({ book }) {
   const { setCartItems } = useContext(BookContext);
   const { title, subtitle, averageRating, thumbnail } = book;
-  console.log(thumbnail);
+  console.log(book.id);
   return (
     <div className="items-center-center mx-4 mb-8 h-[30rem] w-80 rounded-lg rounded-t-lg bg-white text-black shadow-sm shadow-emerald-950">
       <img
