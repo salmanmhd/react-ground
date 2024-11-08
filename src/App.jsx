@@ -1,5 +1,7 @@
-import BookHeaven from "./BookHeaven/BookHeaven";
+// import BookHeaven from "./BookHeaven/BookHeaven";
+
 import Footer from "./Footer";
+import Main from "./Todo Context API/main";
 // import PasswordGenerator from "./PasswordGenerator";
 
 function App() {
@@ -16,7 +18,9 @@ function App() {
           <Background />
           <div className="relative z-10 h-full">
             {/* <PasswordGenerator /> */}
-            <BookHeaven />
+            {/* <BookHeaven /> */}
+            {/* <main */}
+            <Main />
           </div>
         </main>
       </div>
